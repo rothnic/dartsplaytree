@@ -229,6 +229,9 @@ class SplayTree {
           replacement = replacement.getLeft();
         }
       }
+      if (replacement != null) {
+        replacement.getParent().replace(replacement, null);
+      }
       this._super.setLeft(replacement);
       replacement.setLeft(result.getLeft());
       replacement.setRight(result.getRight());
