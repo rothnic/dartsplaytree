@@ -65,6 +65,22 @@ class SplayEntry {
         'right' : jsonRight
       };
   }
+  
+  genD3() {
+    var jsonLeft = {'name':'null'}; 
+    var jsonRight = {'name':'null'};
+    if (this._left != null) {
+      jsonLeft = this._left.genD3();
+    }
+    if (this._right != null) {
+      jsonRight = this._right.genD3();
+    }
+    return 
+      { 
+        'name' : '' + this._key + ' / ' + this._value,
+        'children' : [jsonLeft, jsonRight]
+      };
+  }
 }
 
 class SplayTree {
@@ -223,6 +239,15 @@ class SplayTree {
   genJSON() {
     if (this._super.getLeft() != null) {
       return this._super.getLeft().genJSON();
+    }
+    else {
+      return {};
+    }
+  }
+  
+  genD3() {
+    if (this._super.getLeft() != null) {
+      return this._super.getLeft().genD3();
     }
     else {
       return {};

@@ -3,14 +3,24 @@
 <html>
   <head>
     <title>splaytree</title>
-  </head>
-  <body>
-    <h1>splaytree</h1>
     <script type="application/dart" src="index.html.dart"></script>
     <script type="text/javascript">
       if (navigator.webkitStartDart) {
         navigator.webkitStartDart();
       }
+    </script>
+    <script type="text/javascript" src="d3.v2.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="tree.css"/>
+  </head>
+  <body>
+  	<button id="testbtn" type="button">Test</button>
+    <div id="chart"></div>
+    <script type="text/javascript" src="tree.js"></script>
+    <script type="text/javascript">
+      window.addEventListener("message", function(e){
+        alert(e);
+        redraw(e.data);
+      }, false);
     </script>
   </body>
 </html>
