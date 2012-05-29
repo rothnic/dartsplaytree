@@ -66,4 +66,4 @@ var redraw = function(json) {
        .text(function(d) { return d.name; });
 }
 
-redraw(flare);
+//redraw(flare);
