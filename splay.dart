@@ -248,6 +248,25 @@ class SplayTree {
     }
   }
   
+  SplayEntry _parseJSON(var subTreeJSON) {
+    if (subTreeJSON == null) {
+      return null;
+    }
+    else {
+      SplayEntry left = _parseJSON(subTreeJSON['left']);
+      SplayEntry right = _parseJSON(subTreeJSON['right']);
+      SplayEntry node = new SplayEntry(subTreeJSON['key'], subTreeJSON['value']);
+      node.setLeft(left);
+      node.setRight(right);
+      return node;
+    }
+  }
+  
+  parseJSON(var splayTreeJSON) {
+    SplayEntry root = this._parseJSON(splayTreeJSON);
+    this._super.setLeft(root);
+  }
+  
   genD3() {
     if (this._super.getLeft() != null) {
       return this._super.getLeft().genD3();

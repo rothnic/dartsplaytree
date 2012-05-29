@@ -1,7 +1,13 @@
 #import('dart:html');
+#import('dart:json');
 #import('splay.dart', prefix: "s");
 
 s.SplayTree tree = null;
+
+void redrawTree() {
+  window.postMessage(tree.genD3(), '*');
+  window.localStorage['splayTree'] = JSON.stringify(tree.genJSON());
+}
 
 void insertClick(event) {
   try {
@@ -12,7 +18,7 @@ void insertClick(event) {
     int value = Math.parseInt(valueEl.value);
 
     tree.insert(key, value);
-    window.postMessage(tree.genD3(), '*');
+    redrawTree();
   }
   catch (BadNumberFormatException e) {
     print(e.toString());
@@ -25,7 +31,7 @@ void removeClick(event) {
     int key = Math.parseInt(keyEl.value);
     
     tree.remove(key);
-    window.postMessage(tree.genD3(), '*');
+    redrawTree();
   }
   catch (BadNumberFormatException e) {
     print(e.toString());
@@ -41,7 +47,7 @@ void searchClick(event) {
     
     var result = tree.search(key);
     valueEl.value = '' + result['val'];
-    window.postMessage(tree.genD3(), '*');
+    redrawTree();
   }
   catch (BadNumberFormatException e) {
     print(e.toString());
@@ -53,11 +59,22 @@ void main() {
   document.query('#removeBtn').on.click.add(removeClick);
   document.query('#searchBtn').on.click.add(searchClick);
   
+  print(window.localStorage['abc']);
+  
   tree = new s.SplayTree();
   
+  // check local storage
+  String splayTreeStr = window.localStorage['splayTree'];
+  if (splayTreeStr != null) {
+    var splayTreeJSON = JSON.parse(splayTreeStr);
+    tree.parseJSON(splayTreeJSON);
+  }
+  
+  /*
   tree.insert(4,1);
   tree.insert(3,2);
   tree.insert(5,3);
+  */
   
   window.postMessage(tree.genD3(), '*');
 }
