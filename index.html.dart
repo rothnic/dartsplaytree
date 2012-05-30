@@ -58,8 +58,6 @@ void main() {
   document.query('#removeBtn').on.click.add(removeClick);
   document.query('#searchBtn').on.click.add(searchClick);
   
-  print(window.localStorage['abc']);
-  
   tree = new s.SplayTree();
   
   // check local storage
