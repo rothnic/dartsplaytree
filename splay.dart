@@ -116,10 +116,10 @@ class SplayTree {
       }
       else {
         grandparent.getParent().replace(grandparent, entry);
-        grandparent.setLeft(entry.getRight());
-        entry.setRight(grandparent);
-        parent.setRight(entry.getLeft());
-        entry.setLeft(parent);
+        grandparent.setRight(entry.getLeft());
+        entry.setLeft(grandparent);
+        parent.setLeft(entry.getRight());
+        entry.setRight(parent);
       }
     }
     else {
@@ -137,10 +137,10 @@ class SplayTree {
       }
       else {
         grandparent.getParent().replace(grandparent, entry);
-        grandparent.setRight(entry.getLeft());
-        entry.setLeft(grandparent);
-        parent.setLeft(entry.getRight());
-        entry.setRight(parent);
+        grandparent.setLeft(entry.getRight());
+        entry.setRight(grandparent);
+        parent.setRight(entry.getLeft());
+        entry.setLeft(parent);
       }
     }
     

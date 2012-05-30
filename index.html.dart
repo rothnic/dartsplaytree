@@ -39,7 +39,6 @@ void removeClick(event) {
 }
 
 void searchClick(event) {
-  print('hallo');
   try {
     InputElement keyEl = document.query('#keyText');
     InputElement valueEl = document.query('#valueText');
