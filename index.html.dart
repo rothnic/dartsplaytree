@@ -67,11 +67,5 @@ void main() {
     tree.parseJSON(splayTreeJSON);
   }
   
-  /*
-  tree.insert(4,1);
-  tree.insert(3,2);
-  tree.insert(5,3);
-  */
-  
   window.postMessage(tree.genD3(), '*');
 }

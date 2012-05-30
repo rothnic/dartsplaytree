@@ -1,29 +1,3 @@
-var flare =
-{
- "name": "flare",
- "children": [
-  {
-   "name": "analytics",
-   "children": [
-    {
-     "name": "cluster",
-     "children": [
-      {"name": "AgglomerativeCluster"},
-      {"name": "CommunityStructure"}
-     ]
-    },
-    {
-     "name": "graph",
-     "children": [
-      {"name": "BetweennessCentrality"},
-      {"name": "LinkDistance"}
-     ]
-    }
-   ]
-  }
- ]
-};
-
 var width = 800,
     height = 800;
  
@@ -65,5 +39,3 @@ var redraw = function(json) {
        .attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
        .text(function(d) { return d.name; });
 }
-
-//redraw(flare);
