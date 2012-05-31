@@ -3,17 +3,17 @@
 #import('splay.dart', prefix: "s");
 
 s.SplayTree tree = null;
+InputElement keyEl = null;
+InputElement valueEl = null;
 
 void redrawTree() {
   window.postMessage(tree.genD3(), '*');
+  // save current tree in local storage
   window.localStorage['splayTree'] = JSON.stringify(tree.genJSON());
 }
 
 void insertClick(event) {
   try {
-    InputElement keyEl = document.query('#keyText');
-    InputElement valueEl = document.query('#valueText');
-    
     int key = Math.parseInt(keyEl.value);
     int value = Math.parseInt(valueEl.value);
 
@@ -27,7 +27,6 @@ void insertClick(event) {
 
 void removeClick(event) {
   try {
-    InputElement keyEl = document.query('#keyText');
     int key = Math.parseInt(keyEl.value);
     
     tree.remove(key);
@@ -40,8 +39,6 @@ void removeClick(event) {
 
 void searchClick(event) {
   try {
-    InputElement keyEl = document.query('#keyText');
-    InputElement valueEl = document.query('#valueText');
     int key = Math.parseInt(keyEl.value);
     
     var result = tree.search(key);
@@ -54,6 +51,8 @@ void searchClick(event) {
 }
 
 void main() {
+  keyEl = document.query('#keyText');
+  valueEl = document.query('#valueText');
   document.query('#insertBtn').on.click.add(insertClick);
   document.query('#removeBtn').on.click.add(removeClick);
   document.query('#searchBtn').on.click.add(searchClick);
@@ -67,5 +66,5 @@ void main() {
     tree.parseJSON(splayTreeJSON);
   }
   
-  window.postMessage(tree.genD3(), '*');
+  redrawTree();
 }
