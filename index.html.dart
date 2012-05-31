@@ -6,6 +6,7 @@ s.SplayTree tree = null;
 InputElement keyEl = null;
 InputElement valueEl = null;
 
+// redraw d3 tree
 void redrawTree() {
   window.postMessage(tree.genD3(), '*');
   // save current tree in local storage
@@ -76,10 +77,30 @@ void main() {
   
   // check local storage
   String splayTreeStr = window.localStorage['splayTree'];
+  var splayTreeJSON = null;
   if (splayTreeStr != null) {
-    var splayTreeJSON = JSON.parse(splayTreeStr);
+    splayTreeJSON = JSON.parse(splayTreeStr);
     tree.parseJSON(splayTreeJSON);
   }
-  
+  else {
+    // add default values
+    splayTreeJSON = 
+      {'key' : 5,
+       'value' : 432,
+       'left' : {
+         'key' : 10,
+         'value' : 33,
+         'left' : null,
+         'right' :null
+        },
+       'right' : {
+         'key' : 1,
+         'value' : 333,
+         'left' : null,
+         'right' :null
+        }
+      };
+  }
+  tree.parseJSON(splayTreeJSON);
   redrawTree();
 }

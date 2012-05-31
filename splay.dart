@@ -1,5 +1,6 @@
 #library('splay');
 
+// Tree Node
 class SplayEntry {
   int _key;
   int _value;
@@ -83,7 +84,10 @@ class SplayEntry {
   }
 }
 
+
+// tree
 class SplayTree {
+  // Parent node of root. Used for simplicity.
   SplayEntry _super;
   int _num;
   
