@@ -50,9 +50,24 @@ void searchClick(event) {
   }
 }
 
+void keyTextKeyDown(KeyboardEvent event) {
+  // block non numbers
+  if (event.keyCode != 8 
+   && event.keyCode != 9 
+   && event.keyCode != 37
+   && event.keyCode != 38 
+   && event.keyCode != 39 
+   && event.keyCode != 40 
+   && (event.keyCode < 48 || event.keyCode > 58)) {
+    event.preventDefault();
+  }
+}
+
 void main() {
   keyEl = document.query('#keyText');
   valueEl = document.query('#valueText');
+  keyEl.on.keyDown.add(keyTextKeyDown);
+  valueEl.on.keyDown.add(keyTextKeyDown);
   document.query('#insertBtn').on.click.add(insertClick);
   document.query('#removeBtn').on.click.add(removeClick);
   document.query('#searchBtn').on.click.add(searchClick);
