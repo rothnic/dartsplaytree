@@ -43,7 +43,7 @@ void searchClick(event) {
     int key = int.parse(keyEl.value);
     
     var result = tree.search(key);
-    valueEl.value = '' + result['val'];
+    valueEl.value = '${result["val"]}';
     redrawTree();
   }
   catch (e) {
