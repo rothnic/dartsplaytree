@@ -1,6 +1,6 @@
-#import('dart:html');
-#import('dart:json');
-#import('splay.dart', prefix: "s");
+import 'dart:html';
+import 'dart:convert' show JSON;
+import 'splay.dart' as s;
 
 s.SplayTree tree = null;
 InputElement keyEl = null;
@@ -10,43 +10,43 @@ InputElement valueEl = null;
 void redrawTree() {
   window.postMessage(tree.genD3(), '*');
   // save current tree in local storage
-  window.localStorage['splayTree'] = JSON.stringify(tree.genJSON());
+  window.localStorage['splayTree'] = JSON.encoder.convert(tree.genJSON());
 }
 
 void insertClick(event) {
   try {
-    int key = Math.parseInt(keyEl.value);
-    int value = Math.parseInt(valueEl.value);
+    int key = int.parse(keyEl.value);
+    int value = int.parse(valueEl.value);
 
     tree.insert(key, value);
     redrawTree();
   }
-  catch (BadNumberFormatException e) {
+  catch (e) {
     print(e.toString());
   }
 }
 
 void removeClick(event) {
   try {
-    int key = Math.parseInt(keyEl.value);
+    int key = int.parse(keyEl.value);
     
     tree.remove(key);
     redrawTree();
   }
-  catch (BadNumberFormatException e) {
+  catch (e) {
     print(e.toString());
   }
 }
 
 void searchClick(event) {
   try {
-    int key = Math.parseInt(keyEl.value);
+    int key = int.parse(keyEl.value);
     
     var result = tree.search(key);
     valueEl.value = '' + result['val'];
     redrawTree();
   }
-  catch (BadNumberFormatException e) {
+  catch (e) {
     print(e.toString());
   }
 }
@@ -67,11 +67,11 @@ void keyTextKeyDown(KeyboardEvent event) {
 void main() {
   keyEl = document.query('#keyText');
   valueEl = document.query('#valueText');
-  keyEl.on.keyDown.add(keyTextKeyDown);
-  valueEl.on.keyDown.add(keyTextKeyDown);
-  document.query('#insertBtn').on.click.add(insertClick);
-  document.query('#removeBtn').on.click.add(removeClick);
-  document.query('#searchBtn').on.click.add(searchClick);
+  keyEl.onKeyDown.listen(keyTextKeyDown);
+  valueEl.onKeyDown.listen(keyTextKeyDown);
+  document.query('#insertBtn').onClick.listen(insertClick);
+  document.query('#removeBtn').onClick.listen(removeClick);
+  document.query('#searchBtn').onClick.listen(searchClick);
   
   tree = new s.SplayTree();
   
@@ -79,7 +79,7 @@ void main() {
   String splayTreeStr = window.localStorage['splayTree'];
   var splayTreeJSON = null;
   if (splayTreeStr != null) {
-    splayTreeJSON = JSON.parse(splayTreeStr);
+    splayTreeJSON = JSON.decode(splayTreeStr);
     tree.parseJSON(splayTreeJSON);
   }
   else {

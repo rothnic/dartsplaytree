@@ -1,4 +1,4 @@
-#library('splay');
+Library splay;
 
 // Tree Node
 class SplayEntry {
@@ -39,10 +39,10 @@ class SplayEntry {
   }
   
   void replace(SplayEntry old, SplayEntry entry) {
-    if (this._left === old) {
+    if (this._left == old) {
       this.setLeft(entry);
     }
-    else if (this._right === old) {
+    else if (this._right == old) {
       this.setRight(entry);
     }
     else {
@@ -78,7 +78,7 @@ class SplayEntry {
     }
     return 
       { 
-        'name' : '' + this._key + ' / ' + this._value,
+        'name' : '${this._key} / ${this._value}',
         'children' : [jsonLeft, jsonRight]
       };
   }
@@ -105,13 +105,13 @@ class SplayTree {
     }
     
     SplayEntry grandparent = parent.getParent();
-    if (parent.getLeft() === entry) {
-      if (grandparent === this._super) {
+    if (parent.getLeft() == entry) {
+      if (grandparent == this._super) {
         grandparent.replace(parent, entry);
         parent.setLeft(entry.getRight());
         entry.setRight(parent);
       }
-      else if (grandparent.getLeft() === parent) {
+      else if (grandparent.getLeft() == parent) {
         grandparent.getParent().replace(grandparent, entry);
         grandparent.setLeft(parent.getRight());
         parent.setRight(grandparent);
@@ -127,12 +127,12 @@ class SplayTree {
       }
     }
     else {
-      if (grandparent === this._super) {
+      if (grandparent == this._super) {
         grandparent.replace(parent, entry);
         parent.setRight(entry.getLeft());
         entry.setLeft(parent);
       }
-      else if (grandparent.getRight() === parent) {
+      else if (grandparent.getRight() == parent) {
         grandparent.getParent().replace(grandparent, entry);
         grandparent.setRight(parent.getLeft());
         parent.setLeft(grandparent);

@@ -1,0 +1,4 @@
+name: splay
+dependencies:
+  web_ui: any
+  json_object: any
